@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="style.css">
 <style>
   /* ═══════════════════════════════════════════════════
-     Styles spécifiques à cette page — Visionneuse PDF
+     Styles spécifiques à cette page — Intégration Canva
      ═══════════════════════════════════════════════════ */
 
   #page-content {
@@ -53,294 +53,62 @@
     text-align: right;
   }
 
-  /* ── Visionneuse PDF ── */
-  .pdf-viewer-section {
+  /* ── Intégration Canva ── */
+  .canva-embed-section {
     max-width: 1100px;
     margin: 0 auto;
   }
 
-  /* Zone de drop / upload */
-  .pdf-upload-zone {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding: 60px 40px;
-    border: 2px dashed var(--cream-3);
-    border-radius: var(--radius);
-    background: var(--white);
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    text-align: center;
-  }
-  .pdf-upload-zone:hover,
-  .pdf-upload-zone.dragover {
-    border-color: var(--orange);
-    background: rgba(var(--orange-rgb, 214,90,49), 0.03);
-  }
-
-  .upload-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-  }
-
-  .upload-label {
-    font-family: 'Fraunces', serif;
-    font-size: 20px;
-    font-weight: 300;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-  }
-
-  .upload-hint {
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--ink-3);
-    line-height: 1.5;
-  }
-
-  .upload-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 22px;
-    background: var(--ink);
-    color: var(--cream);
-    border: none;
-    border-radius: 100px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .upload-btn:hover { background: var(--orange); transform: translateY(-1px); }
-
-  /* Lecteur PDF */
-  .pdf-reader {
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1px solid var(--cream-3);
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(28,27,24,0.06);
-  }
-  .pdf-reader.visible { display: flex; }
-
-  /* Barre de contrôles */
-  .pdf-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--cream-3);
-    background: var(--cream);
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .pdf-controls-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .pdf-filename {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink);
-    max-width: 260px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .pdf-controls-center {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .pdf-nav-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 1px solid var(--cream-3);
-    background: var(--white);
-    color: var(--ink);
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s, border-color 0.15s, transform 0.15s;
-  }
-  .pdf-nav-btn:hover:not(:disabled) {
-    background: var(--ink);
-    color: var(--cream);
-    border-color: var(--ink);
-    transform: scale(1.05);
-  }
-  .pdf-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-
-  .pdf-page-info {
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--ink-2);
-    white-space: nowrap;
-    min-width: 80px;
-    text-align: center;
-  }
-
-  .pdf-controls-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .pdf-zoom-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 6px;
-    border: 1px solid var(--cream-3);
-    background: var(--white);
-    color: var(--ink);
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s;
-  }
-  .pdf-zoom-btn:hover { background: var(--cream); }
-
-  .pdf-zoom-level {
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--ink-3);
-    min-width: 38px;
-    text-align: center;
-  }
-
-  .pdf-change-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border: 1px solid var(--cream-3);
-    border-radius: 100px;
-    background: var(--white);
-    color: var(--ink-2);
-    font-family: 'Outfit', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    cursor: pointer;
-    transition: border-color 0.15s, color 0.15s;
-  }
-  .pdf-change-btn:hover { border-color: var(--orange); color: var(--orange); }
-
-  /* Canvas de rendu */
-  .pdf-canvas-wrapper {
-    overflow: auto;
-    background: #e8e5df;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 32px;
-    min-height: 520px;
-  }
-
-  #pdfCanvas {
-    box-shadow: 0 4px 24px rgba(28,27,24,0.18);
-    display: block;
-    border-radius: 2px;
-    transition: transform 0.2s;
-  }
-
-  /* Barre de miniatures (optionnelle) */
-  .pdf-thumbnails {
-    display: flex;
-    gap: 8px;
-    padding: 12px 20px;
-    overflow-x: auto;
-    border-top: 1px solid var(--cream-3);
-    background: var(--cream);
-    scrollbar-width: thin;
-    scrollbar-color: var(--cream-3) transparent;
-  }
-
-  .pdf-thumb {
-    flex-shrink: 0;
-    width: 64px;
-    height: 48px;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: border-color 0.15s, transform 0.15s;
-    background: var(--white);
-  }
-  .pdf-thumb:hover { transform: translateY(-2px); border-color: var(--ink-3); }
-  .pdf-thumb.active { border-color: var(--orange); }
-  .pdf-thumb canvas { width: 100%; height: 100%; object-fit: cover; }
-
-  /* Barre de progression */
-  .pdf-progress {
-    height: 3px;
-    background: var(--cream-3);
+  .canva-container {
     position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%;
+    padding-bottom: 0;
+    box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
+    margin-top: 1.6em;
+    margin-bottom: 0.9em;
     overflow: hidden;
+    border-radius: 8px;
+    will-change: transform;
   }
-  .pdf-progress-bar {
+
+  .canva-container iframe {
+    position: absolute;
+    width: 100%;
     height: 100%;
-    background: var(--orange);
-    transition: width 0.3s ease;
-    width: 0%;
+    top: 0;
+    left: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
   }
 
-  /* Loading state */
-  .pdf-loading {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    padding: 60px;
-    color: var(--ink-3);
-    font-size: 14px;
+  .canva-credit {
+    text-align: center;
+    font-size: 13px;
     font-weight: 300;
+    color: var(--ink-3);
+    margin-top: 24px;
   }
-  .pdf-loading.visible { display: flex; }
 
-  .pdf-spinner {
-    width: 32px;
-    height: 32px;
-    border: 2px solid var(--cream-3);
-    border-top-color: var(--orange);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+  .canva-credit a {
+    color: var(--orange);
+    text-decoration: none;
+    transition: color 0.2s;
   }
-  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .canva-credit a:hover {
+    color: var(--blue);
+    text-decoration: underline;
+  }
 
   /* Responsive */
   @media (max-width: 820px) {
     #page-content { padding: 100px 20px 60px; }
     .page-hero-inner { flex-direction: column; align-items: flex-start; }
     .page-desc { text-align: left; max-width: 100%; }
-    .pdf-canvas-wrapper { padding: 16px; min-height: 360px; }
-    .pdf-controls { gap: 10px; }
-    .pdf-controls-right .pdf-zoom-btn,
-    .pdf-controls-right .pdf-zoom-level { display: none; }
-    .pdf-thumbnails { display: none; }
+    .canva-container { margin-top: 1.2em; margin-bottom: 0.6em; }
   }
 
   /* ─── NAVBAR LINKS ─── */
@@ -420,68 +188,13 @@
     </div>
   </div>
 
-  <!-- ── Visionneuse PDF (remplace la grille de cartes) ── -->
-  <div class="pdf-viewer-section reveal">
-
-    <!-- Zone d'upload (affichée par défaut) -->
-    <div class="pdf-upload-zone" id="uploadZone">
-      <div class="upload-icon">📄</div>
-      <div class="upload-label">Importe ton diaporama Canva</div>
-      <div class="upload-hint">
-        Exporte ta présentation depuis Canva en <strong>PDF</strong>,<br>
-        puis glisse-dépose le fichier ici ou clique sur le bouton.
-      </div>
-      <button class="upload-btn" onclick="document.getElementById('pdfInput').click()">
-        ↑ Choisir un fichier PDF
-      </button>
-      <input type="file" id="pdfInput" accept="application/pdf" style="display:none">
+  <!-- ── Intégration Canva Diaporama ── -->
+  <div class="canva-embed-section reveal">
+    <div class="canva-container">
+      <iframe loading="lazy" src="https://www.canva.com/design/DAG3rddPW10/rLLIiz8-v865XXw1xmvsfQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
     </div>
-
-    <!-- Loading -->
-    <div class="pdf-loading" id="pdfLoading">
-      <div class="pdf-spinner"></div>
-      <span>Chargement du diaporama…</span>
-    </div>
-
-    <!-- Lecteur PDF (masqué jusqu'au chargement) -->
-    <div class="pdf-reader" id="pdfReader">
-
-      <!-- Barre de progression -->
-      <div class="pdf-progress">
-        <div class="pdf-progress-bar" id="progressBar"></div>
-      </div>
-
-      <!-- Contrôles -->
-      <div class="pdf-controls">
-        <div class="pdf-controls-left">
-          <span>📄</span>
-          <span class="pdf-filename" id="pdfFilename">veilleTechnologique.pdf</span>
-        </div>
-
-        <div class="pdf-controls-center">
-          <button class="pdf-nav-btn" id="prevBtn" onclick="changePage(-1)" aria-label="Page précédente" disabled>←</button>
-          <span class="pdf-page-info">
-            <span id="currentPage">1</span> / <span id="totalPages">—</span>
-          </span>
-          <button class="pdf-nav-btn" id="nextBtn" onclick="changePage(1)" aria-label="Page suivante">→</button>
-        </div>
-
-        <div class="pdf-controls-right">
-          <button class="pdf-zoom-btn" onclick="changeZoom(-0.15)" title="Dézoomer">−</button>
-          <span class="pdf-zoom-level" id="zoomLevel">100%</span>
-          <button class="pdf-zoom-btn" onclick="changeZoom(0.15)" title="Zoomer">+</button>
-          <button class="pdf-change-btn" onclick="resetViewer()" title="Changer de fichier">↺ Changer</button>
-        </div>
-      </div>
-
-      <!-- Canvas de rendu de la page -->
-      <div class="pdf-canvas-wrapper" id="canvasWrapper">
-        <canvas id="pdfCanvas"></canvas>
-      </div>
-
-      <!-- Miniatures de navigation -->
-      <div class="pdf-thumbnails" id="pdfThumbnails"></div>
-
+    <div class="canva-credit">
+      <a href="https://www.canva.com/design/DAG3rddPW10/rLLIiz8-v865XXw1xmvsfQ/view?utm_content=DAG3rddPW10&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">Veille Technologique Rôle de l'IA</a> réalisée avec Canva
     </div>
   </div>
 
@@ -495,9 +208,6 @@
   <a href="index.html" class="footer-logo">P<span>.</span>N</a>
   <div class="footer-copy">Portfolio BTS SIO· 2024–2026</div>
 </footer>
-
-<!-- PDF.js (librairie de rendu PDF open-source) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <!-- ═══════════════════════════════════════════════════
      JAVASCRIPT (copier-coller identique sur chaque page)
